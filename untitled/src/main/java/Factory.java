@@ -241,7 +241,7 @@ public class Factory {
         return null;
     }
 
-    public static String getCategoriesByID(int ID){
+    public static String getCategoriesByID(int ID) {
         ArrayList<Categories> arrayCategories = new ArrayList<>();
 
         ResultSet result;
@@ -268,14 +268,14 @@ public class Factory {
         return null;
     }
 
-    public static String getEmployeeByName (String lastName){
+    public static String getEmployeeByName(String lastName) {
         ArrayList<Employees> arrayListEmployee = new ArrayList<>();
         ResultSet result;
 
         try {
             Connection connection = JDBCConnection.getConnection();
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM employees WHERE lastName = "+ "'" + lastName + "'";
+            String query = "SELECT * FROM employees WHERE lastName = " + "'" + lastName + "'";
             result = statement.executeQuery(query);
             System.out.println(query);
             while (result.next()) {
@@ -298,19 +298,62 @@ public class Factory {
         return null;
     }
 
-
-
-    public static void main(String[] args) {
-        getCategories();
-        getCustomers();
-        getEmployees();
-        getOrders();
-        getOrderDetail();
-        getProducts();
-        getShipper();
-        getSuppliers();
-        getCategoriesByID(1);
-        getEmployeeByName("Davolio");
-
+    public static String insertCategories(String CategoryName, String Description) {
+        Connection connection = JDBCConnection.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "INSERT INTO categories(CategoryName, Description) VALUES" +
+                    "(" + "'" + CategoryName + "'" + "," + "'" + Description + "'" + ")";
+            System.out.println(query);
+            int result = statement.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        String s = "Insert thanh cong";
+        return s;
     }
+
+    public static String updateCategories(String CategoryID, String CategoryName, String Description) {
+        Connection connection = JDBCConnection.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "UPDATE categories SET " +
+                    "CategoryName = " + "'" + CategoryName + "'," + "Description = " + "'" + Description + "'" +
+                    "WHERE CategoryID = " + "'" + CategoryID + "'";
+            System.out.println(query);
+            int result = statement.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        String s = "Update thanh cong";
+        return s;
+    }
+
+    public static String deleteCategories(String CategoryID) {
+        Connection connection = JDBCConnection.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "DELETE FROM categories WHERE categoryID = " + CategoryID;
+            int result = statement.executeUpdate(query);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        String s = "Delete thanh cong";
+        return s;
+    }
+
+
+//    public static void main(String[] args) {
+//        getCategories();
+//        getCustomers();
+//        getEmployees();
+//        getOrders();
+//        getOrderDetail();
+//        getProducts();
+//        getShipper();
+//        getSuppliers();
+//        getCategoriesByID(1);
+//        getEmployeeByName("Davolio");
+//
+//    }
 }
